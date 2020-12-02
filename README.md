@@ -23,10 +23,3 @@ File: app/create_sudoku.py
 
 
 This is an school project so for the delivery I need to repeat the functions over the code and break the DRY principle. 
-
-
-
-
-
- 
- 
