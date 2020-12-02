@@ -2,7 +2,7 @@
 
 ## Solving Sudoku: 
 
-![Image of Solving Algorithm]("https://github.com/Macmaad/Sudoku/blob/dev/Sudoku.png") 
+![Image of Solving Algorithm]("Sudoku.png") 
 
 
 ## Sudoku Creator:
