@@ -5,6 +5,12 @@ it is using to work.
 from random import randint
 
 
+class Tree:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+
 def remove_n_random_numbers(n, game_grid):
     """  When we have solver our Sudoku, to give an empty game to the
     user we need to remove up to n values (minimum numbers on grid must be 17).
@@ -157,7 +163,7 @@ def get_next_empty_space(game_grid):
     return m, n
 
 
-def solve(game_grid):
+def solve(game_grid, nodes_list, head):
     """
     Using DFS search tree (recursive) it solves the game.
 
@@ -181,23 +187,28 @@ def solve(game_grid):
         else:
             values = get_possible_values_for_space(row, column, game_grid)
             for value in values:
+                new_head = Tree(value)
+                head.children.append(new_head)
                 game_grid[row][column] = value
+                nodes_list.append(value)
 
-                if solve(game_grid):
+                if solve(game_grid, nodes_list, new_head):
                     return True
                 game_grid[row][column] = 0
 
     return False
 
 
-def solve_handler(game_grid):
+def solve_handler(game_grid, head):
     """
     As a main()
+    :param head:
     :param game_grid: Complete 9x9 Grid
     :return: Solved game grid.
     """
-    solve(game_grid)
-    return game_grid
+    nodes_list = []
+    solve(game_grid, nodes_list, head)
+    return game_grid, nodes_list
 
 
 def set_3_3_sub_matrix_initial_values(grid):
@@ -239,18 +250,26 @@ def create_initial_grid():
     return grid_with_sub_matrix
 
 
-def create_sudoku():
+def create_sudoku(head):
     """
     Just like other main handler.
     :return:
     """
     initial_game = create_initial_grid()
-    solved_game = solve_handler(initial_game)
+    solved_game, nodes_list = solve_handler(initial_game, head)
+
+    for row in solved_game:
+        print(row, end="\n")
+    print("\n")
+
     user_game_output = remove_n_random_numbers(60, solved_game)
+    print(nodes_list)
+
     return user_game_output
 
 
 if __name__ == '__main__':
-    game = create_sudoku()
+    tree_node = Tree(None)
+    game = create_sudoku(tree_node)
     for game_row in game:
         print(game_row, end="\n")
