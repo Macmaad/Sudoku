@@ -262,8 +262,9 @@ def create_sudoku(head):
         print(row, end="\n")
     print("\n")
 
-    user_game_output = remove_n_random_numbers(60, solved_game)
+    user_game_output = remove_n_random_numbers(50, solved_game)
     print(nodes_list)
+    print("\n")
 
     return user_game_output
 
